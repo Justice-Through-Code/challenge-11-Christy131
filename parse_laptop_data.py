@@ -9,6 +9,9 @@ so the data has been ported in as is.
 Our goal is to be able to parse this data with code, so that we can utilize it in our code.
 """
 
+from cgi import print_arguments
+
+
 laptops = [
         {
             "id": "1",
@@ -66,21 +69,25 @@ laptops = [
 
 
 # 1.1 TODO: Print out the MacBook Pro url
-
+print(laptops[0]['url'])
 
 # 1.2 TODO: Write a function called `print_laptop_data` that takes in two parameters: `laptop` and `topic`, and returns nothing.
-#
+def print_laptop_data(laptop, topic):
+    computer = None
 #   If `laptop` is 'Apple Macbook Pro', the function should print out data about that computer.
+    if laptop == "Apple Macbook Pro":
+        computer = laptops[0]
 #   If `laptop` is 'Dell XPS', the function should print out data about that computer.
-#
+    if laptop =="Dell XPS":
+        computer = laptops[1]
 #   NOTE: There are multiple types of each computer. Assume the user wants to know about the ones with
 #       the smaller (and therefore cheaper) screen size.
-#
+    print(f"{laptop} {topic}: {computer['types'][0][topic]}")
 #   The `topic` can be anything about the type of computer (price, screen size, cpu, etc). For example:
 #   If `topic` is 'prices', the function should print out all possible prices of the specified computer.
 #   If `topic` is 'colors', the function should print out all possible colors of the specified computer.
 #   etc etc etc for each computer topic. (NOTE: you do NOT need an if- or elif- statement for each option.)
-#
+#   
 #   The data should print out like so:
 #   <computer-name> <topic>: <data>
 #
@@ -92,22 +99,31 @@ laptops = [
 #   1.3.1: All possible prices of the Apple Macbook Pro.
 #   1.3.2: All the color options for the Dell XPS.
 #   1.3.3: The screen_size of the Dell XPS.
-
+print_laptop_data("Apple Macbook Pro", "price")
+print_laptop_data("Dell XPS", "colors")
+print_laptop_data("Dell XPS", "screen_size")
 
 # 2.1 TODO: Write a function called `list_prices` that takes one parameter: a list of computers, and returns nothing.
 #   Using nested loops, the function should print out all possible computer prices, one price on each line.
 #   No need to specify which computer each price belongs to.
-
-
+def list_prices(computers):
+    for computer in computers:
+        for ty in computer["types"]:
+            for price in ty["price"]:
+                print(price)
+        
+                
 # 2.2 TODO: Call your function to see that it works.
 
 
 # 3.0 Suppose that the two versions of the 16-inch MacBook Pro are no longer available:
 #   - In the color 'space gray'
 #   - With '1 TB SSD' storage
+laptops[0]["types"][1]["colors"].pop(0)
+laptops[0]["types"][1]["storage"].pop(1)
 
 # 3.1 TODO: Update the `laptops` dictionary to reflect these changes.
-
+print(laptops[0])
 
 # 3.2 TODO: Print out the Macbook Pro dictionary to see the changes.
 
